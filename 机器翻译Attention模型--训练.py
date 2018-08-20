@@ -115,7 +115,6 @@ class NMTModel(object):
         src_emb = tf.nn.dropout(src_emb, KEEP_PROB)
         trg_emb = tf.nn.dropout(trg_emb, KEEP_PROB)
 
-。
         with tf.variable_scope("encoder"):
             enc_outputs, enc_state = tf.nn.bidirectional_dynamic_rnn(
                 self.enc_cell_fw, self.enc_cell_bw, src_emb, src_size, 
@@ -169,7 +168,7 @@ def run_epoch(session, cost_op, train_op, saver, step):
             cost, _ = session.run([cost_op, train_op])
             if step % 10 == 0:
                 print("After %d steps, per token cost is %.3f" % (step, cost))
-            # 每200步保存一个checkpoint。
+            # 每200步保存一个checkpoint
             if step % 200 == 0:
                 saver.save(session, CHECKPOINT_PATH, global_step=step)
             step += 1
